@@ -13,3 +13,5 @@ T = int(input())
     
 for _ in range(T):
     fibonacci(int(input()))
+
+print(one, zero)

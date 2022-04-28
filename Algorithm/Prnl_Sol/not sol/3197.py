@@ -16,36 +16,30 @@ def dfs(x, y):
             backjo[nx][ny] = '.'
             distance_dfs[nx][ny] = True
 
-def bfs():
-    global distance_bfs
-    global L
-    limit = 0
-    distance_bfs[L[0]][L[1]] = True
+def bfs(x, y):
+    q = deque([(x, y)])
+    distance_bfs[x][y] = True
     while q:
         x, y = q.popleft()
-        if limit == 4:
-            return 0
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
             if nx < 0 or nx >= H or ny < 0 or ny >= W:
                 continue
             if backjo[nx][ny] == 'X':
-                limit += 1
                 continue
-            if backjo[nx][ny] == '.' and distance_bfs == False:
-                limit = 0
-                distance_bfs[nx][ny] = True
-                q.append([nx, ny])
-            if backjo[nx][ny] == backjo[L[2]][L[3]]:
+            if backjo[nx][ny] == '.' and distance_bfs[nx][ny] == True:
+                continue
+            if backjo[nx][ny] == backjo[x2][y2]:
                 return 1
-            limit += 1
+            if backjo[nx][ny] == '.' and distance_bfs[nx][ny] == False:
+                q.append((nx, ny))
+                distance_bfs[nx][ny] = True
     return 0
 
 backjo = []
 L = []
 count = 0
-q = deque([])
 
 H, W = map(int, sys.stdin.readline().split())
 
@@ -55,31 +49,31 @@ for i in range(H):
 for i in range(H):
     for j in range(W):
         if backjo[i][j] == 'L':
-            L.append(i)
-            L.append(j)
-q.append([L[0], L[1]])
+            L.append((i, j))
+
+(x1, y1), (x2, y2) = L
 
 while True:
-    distance_dfs = [[False] * W for i in range(H)]
-    distance_bfs = [[False] * W for i in range(H)]
+    distance_dfs = [[False] * H for _ in range(W)]
+    distance_bfs = [[False] * H for _ in range(W)]
 
-    for i in range(H):
-        for j in range(W):
-            if backjo[i][j] == '.' and distance_dfs[i][j] == False:
-                dfs(i, j)
-    count += 1
-    # # print("{}주차".format(count+1))
-    # # for i in range(H):
-    # #     print(backjo[i])
-
-    # if count == 2:
-    #     break
-
-    if bfs() == 1:
+    if bfs(x1, y1) == 1:
         print(count)
         break
     else:
-        continue
+        for i in range(H):
+            for j in range(W):
+                if backjo[i][j] == '.' and distance_dfs[i][j] == False:
+                    dfs(i, j)
+    count += 1
+    # print("{}주차".format(count+1))
+    # for i in range(H):
+    #     print(backjo[i])
+
+    # if count == 3:
+    #     break
+
+ 
 
                 
 
