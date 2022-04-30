@@ -83,5 +83,5 @@ bfs(sx,sy)
     
 print(visited[ex][ey]-1)
 
-for i in range(n):
-    print(visited[i])
+# for i in range(n):
+#     print(visited[i])

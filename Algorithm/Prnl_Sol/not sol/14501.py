@@ -19,11 +19,11 @@ for i in range(len(out)):
         if sub_time < act_time:
             if out[sub_time - 1][1] >= out[sub_time][1]:
                 total_m += out[sub_time-1][1]
-                False
+                break
             else:
                 sub_time += 1
-                True
-        False        
+                break
+               
 print(total_m)  
 
 # 7
