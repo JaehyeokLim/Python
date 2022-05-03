@@ -1,22 +1,16 @@
-N = int(input())
-M = int(input())
-
-sticker = [list(map(int, input().split())) for _ in range(N)]
-result = 0
-indexB = []
-
-for i in range(N):
-    maxi = max(sticker[i])
-    result += maxi
-    indexB.append(sticker.index(max(sticker[i])))
-    sticker[i][indexB] = 0
-    if indexB[i] == N - 1 and not 0:
-        sticker[i][indexB[i] + 1] = 0
-        sticker[i+1][indexB[i]] = 0
-    if indexB[i] == N - 1 and not N: 
-        sticker[i][indexB[i] - 1] = 0
-        sticker[i+1][indexB[i]] = 0
+T = int(input())
+for _ in range(T):
+    n = int(input())
+    dp = [list(map(int, input().split())) for _ in range(2)]
+    dp[0][1] += dp[1][0]
+    dp[1][1] += dp[0][0]
+    for i in range(2,n):
+        dp[0][i] += max(dp[1][i-1], dp[1][i-2])
+        dp[1][i] += max(dp[0][i-1], dp[0][i-2])
+    # print(max(dp[0][n-1], dp[1][n-1]))
+    print(dp)
+    
 
 
-print(sticker)
+
     

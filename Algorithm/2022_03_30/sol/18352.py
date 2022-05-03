@@ -1,3 +1,4 @@
+from dis import dis
 import sys
 from collections import deque
 
@@ -35,6 +36,7 @@ else:
     for i in range(len(result)):
         print(result[i])
     
+print(distance)
     
 
 
